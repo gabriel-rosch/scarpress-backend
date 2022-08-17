@@ -1,0 +1,177 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String
+
+
+  @@map("user")
+}
+
+model Vehicle {
+  id           String        @id @default(uuid())
+  plate        String        @unique
+  description  String
+  chassis      String?
+  model        String?
+  year         String?
+  renavan      String?
+  brand        String? //Marca/fabricante
+  weight       String?
+  tracked      Boolean? //rastreado
+  hourse       Boolean? //cavalo
+  owner        String? //proprietario
+  axes         String?
+  articulateds Articulated[]
+  Employee     Employee[]
+
+  Freight Freight[]
+  Expense Expense[]
+  @@map("vehicle")
+}
+
+model Client {
+  id         String  @id @default(uuid())
+  name       String
+  cnpj       String?
+  cep        String?
+  district   String? //bairro
+  address    String? //endereço
+  city       String?
+  state      String?
+  complement String?
+  email      String?
+
+  Freight Freight[]
+  @@map("client")
+}
+
+model Articulated {
+  id                   String   @id @default(uuid())
+  Vehicle              Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId            String?
+  vehicleArticulatedId String?
+
+
+  @@map("articulated")
+}
+
+model ExpenseType {
+  id          String   @id @default(uuid())
+  description String
+  isCommon    Boolean? //é despesa em comum?
+
+  @@map("expenseType")
+  Expense Expense[]
+}
+
+model PaymentType {
+  id          String @id @default(uuid())
+  description String
+
+  Freight Freight[]
+  @@map("paymentType")
+}
+
+model Employee {
+  id         String    @id @default(uuid())
+  name       String
+  occupation String?
+  commission Decimal?
+  admission  DateTime?
+
+  uniform           String?
+  birth             DateTime?
+  cpf               String?
+  rg                String?
+  pis               String?
+  cnh               String?
+  cnhValidate       DateTime?
+  resignation       DateTime?
+  toxicologicalExam DateTime?
+
+  cep           String?
+  district      String?
+  address       String?
+  city          String?
+  state         String?
+  complement    String?
+  email         String?
+  Vehicle       Vehicle?        @relation(fields: [vehicleId], references: [id])
+  vehicleId     String?
+  TrafficTicket TrafficTicket[]
+
+
+  @@map("employee")
+}
+
+model TrafficTicket {
+  id         String    @id @default(uuid())
+  name       String
+  date       DateTime?
+  value      Decimal?
+  pending    Boolean?  @default(true)
+  Employee   Employee? @relation(fields: [employeeId], references: [id])
+  employeeId String?
+}
+
+model Freight {
+  id            String       @id @default(uuid())
+  Vehicle       Vehicle?     @relation(fields: [vehicleId], references: [id])
+  vehicleId     String?
+  Client        Client?      @relation(fields: [clientId], references: [id])
+  clientId      String?
+  origin        String?
+  destiny       String?
+  date          DateTime?
+  PaymentType   PaymentType? @relation(fields: [paymentTypeId], references: [id])
+  paymentTypeId String?
+
+  value     Decimal?
+  valuePaid Boolean? @default(false)
+
+  payments Payment[]
+  Expense  Expense[]
+}
+
+model Payment {
+  id        String   @id @default(uuid())
+  value     Decimal?
+  valuePaid Boolean? @default(false)
+
+  Freight   Freight? @relation(fields: [freightId], references: [id])
+  freightId String?
+}
+
+model Expense {
+  id           String    @id @default(uuid())
+  value        String
+  description  String?
+  installments String
+  dueDate      DateTime?
+
+  Freight   Freight? @relation(fields: [freightId], references: [id])
+  freightId String?
+
+  ExpenseType   ExpenseType? @relation(fields: [expenseTypeId], references: [id])
+  expenseTypeId String?
+
+  Vehicle   Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId String?
+}
+
+//expenseType
+//   vehicle
+
+//   freight
