@@ -1,114 +1,40 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+"use strict";Object.defineProperty(exports, "__esModule", {value: true});
+var _CreateFreightUseCase = require('./CreateFreightUseCase');
+var _GetFreightUseCase = require('./GetFreightUseCase');
+var _RemoveFreightUseCase = require('./RemoveFreightUseCase');
+var _UpdateFreightUseCase = require('./UpdateFreightUseCase');
+
+
+ class FreightController {
+    async create(request, response) {
+        const data = request.body;
+        const createFreightUseCase = new (0, _CreateFreightUseCase.CreateFreightUseCase)();
+        const result = await createFreightUseCase.execute(data)
+
+        return response.json(result);
     }
-};
-exports.__esModule = true;
-exports.FreightController = void 0;
-var CreateFreightUseCase_1 = require("./CreateFreightUseCase");
-var GetFreightUseCase_1 = require("./GetFreightUseCase");
-var RemoveFreightUseCase_1 = require("./RemoveFreightUseCase");
-var UpdateFreightUseCase_1 = require("./UpdateFreightUseCase");
-var FreightController = /** @class */ (function () {
-    function FreightController() {
+    async update(request, response) {
+        const data = request.body;
+        const updateFreightUseCase = new (0, _UpdateFreightUseCase.UpdateFreightUseCase)();
+        const result = await updateFreightUseCase.execute(data)
+
+        return response.json(result);
     }
-    FreightController.prototype.create = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, createFreightUseCase, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        data = request.body;
-                        createFreightUseCase = new CreateFreightUseCase_1.CreateFreightUseCase();
-                        return [4 /*yield*/, createFreightUseCase.execute(data)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, response.json(result)];
-                }
-            });
-        });
-    };
-    FreightController.prototype.update = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, updateFreightUseCase, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        data = request.body;
-                        updateFreightUseCase = new UpdateFreightUseCase_1.UpdateFreightUseCase();
-                        return [4 /*yield*/, updateFreightUseCase.execute(data)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, response.json(result)];
-                }
-            });
-        });
-    };
-    FreightController.prototype.get = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, getFreightUseCase, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        data = request.query;
-                        getFreightUseCase = new GetFreightUseCase_1.GetFreightUseCase();
-                        return [4 /*yield*/, getFreightUseCase.execute(data)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, response.json(result)];
-                }
-            });
-        });
-    };
-    FreightController.prototype.remove = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, removeFreightUseCase, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        data = request.body;
-                        removeFreightUseCase = new RemoveFreightUseCase_1.RemoveFreightUseCase();
-                        return [4 /*yield*/, removeFreightUseCase.execute(data.id)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, response.json(result)];
-                }
-            });
-        });
-    };
-    return FreightController;
-}());
-exports.FreightController = FreightController;
-//# sourceMappingURL=FreightController.js.map
+    async get(request, response) {
+        const data = request.query;
+        
+        const getFreightUseCase = new (0, _GetFreightUseCase.GetFreightUseCase)();
+        const result = await getFreightUseCase.execute(data);
+
+        return response.json(result);
+    }
+    async remove(request, response) {
+        const data = request.body;
+        const removeFreightUseCase = new (0, _RemoveFreightUseCase.RemoveFreightUseCase)();
+        const result = await removeFreightUseCase.execute(data.id);
+
+        return response.json(result);
+    }
+    
+} exports.FreightController = FreightController;
+
