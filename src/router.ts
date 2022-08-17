@@ -33,7 +33,9 @@ const dashboardController = new DashboardController();
 
 
 
-
+routes.get('/',(req,res) => {
+    return res.json({message:'Server UP'})
+});
 
 routes.post('/user/',createUserController.handle);
 routes.post('/authenticate', authenticateClientController.handle);
