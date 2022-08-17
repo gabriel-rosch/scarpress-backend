@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports",
-    "start": "sucrase-node dist/server.js"
+    "start": "sucrase-node dist/server.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
